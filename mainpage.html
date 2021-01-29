@@ -1,0 +1,180 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>My Documents</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="mainpage.css" type="text/css">
+        <script>
+            function check(element){
+                let total=0;
+                var x1=document.getElementById("one").value.trim();
+                if(x1.length!=0){
+                    total++;
+                }
+                var x2=document.getElementById("two").value.trim();
+                if(x2.length!=0){
+                    total++;
+                }
+                var x3=document.getElementById("three").value.trim();
+                if(x3.length!=0){
+                    total++;
+                }
+                var x4=document.getElementById("four").value.trim();
+                if(x4.length!=0){
+                    total++;
+                }
+                document.getElementById("num").innerText=total;
+            }
+            function re(){
+                document.getElementById("three").style.borderColor="blue";
+            }
+        </script>
+    </head>
+    <body>
+
+        <script>
+            const paramas=new URLSearchParams(window.location.search);
+            let authcode=paramas.get('code');
+            //The above code is collecting authorization code from uri
+
+            var urlencoded = new URLSearchParams();
+                urlencoded.append("code", authcode),
+                urlencoded.append("grant_type", "authorization_code"),
+                urlencoded.append("client_id", "76F1D00C"),
+                urlencoded.append("client_secret", "86ac5e776709e1e98f44"),
+                urlencoded.append("redirect_uri", "https://www.ridobiko.com/digilocker/callback");
+
+            fetch('https://api.digitallocker.gov.in/public/oauth2/1/token',{
+                method: 'POST',
+                headers: {
+                    'Content-Type':'application/x-www-form-urlencoded'
+                },
+                body: urlencoded,
+            })
+            .then((res)=> res.json())
+            .then((data)=>{
+                //This API is used to collect users details
+
+                fetch('https://api.digitallocker.gov.in/public/oauth2/1/user,'{
+                    method : 'GET',
+                    headers: {
+                        'Authorization': 'Bearer <data.access_token>'
+                    }
+                    .then((res)=> res.json())
+                    .then((data)=> )
+                })
+
+                //This API is used to get issued documents by user
+                fetch('https://api.digitallocker.gov.in/public/oauth2/2/files/issued',{
+                    method: 'GET',
+                    headers: {
+                        'Authorization': 'Bearer <data.access_token>'
+                    }
+                    .then((res)=> res.json())
+                    .then((data)=> )
+                })
+            })
+            //The above code is for getting access token by passing api and their parameters
+        </script>
+
+
+
+        <h1 class="resp">Your Documents</h1>
+        <div class="ub honeyclr sub">
+            <div class="ib">
+                <div class="identify resp">Identity</div>
+            </div><br>
+            <div class="nl resp">
+                Provide documents from the below section
+                <div class="flex">
+                    <div class="lpad">Uploaded:</div>
+                    <div class="fs" id="num">0</div>
+                </div>
+            </div>
+
+            <div class="outoutfirst">
+            <div class="outfirst">
+                <div class="first"></div>
+            </div>
+            </div>
+            <br><br>
+
+            <div class="flexi">
+                <div class="resize">
+                <div class="q pdd rsize">
+                <div class="design newcolor">
+                    <h2 class="lp notresp resp">Aadhaar</h2>
+                    <form>
+                        <div class="flex">
+                        <div class="img"><img src="realadhar.png" class="imagesize1"></div>
+                        <div><input type="text"  placeholder="xxxx xxxx xxxx xxxx" class="size respi" oninput="check()" id="one" required></div>
+                        <div class="plusone">
+                        <div class="dl plus"><img src="circle-cropped.png" class="plussize"></div>
+                        </div>
+                        </div>
+                    </form>
+                </div>
+                </div>
+                </div>
+
+                <div class="q pdd rsize">
+                <div class="design newcolor">
+                    <h2 class="lp notresp resp">Driving License</h2>
+                    <form>
+                        <div class="flex">
+                        <div class="img"><img src="drivinglic.jpg" class="imagesize2"width="40px" height="42px"></div>
+                        <div><input type="text"  placeholder="xx0000000000008" class="size respi" oninput="check()" id="two"></div>
+                        <div class="plusone">
+                        <div class="dl plus"><img src="circle-cropped.png" class="plussize"></div>
+                        </div>
+                        </div>
+                    </form>
+                </div>
+                </div>
+
+            </div>
+
+            <div class="flexi">
+                <div class="q pdd rsize">
+                <div class="design newcolor">
+                    <h2 class="lp notresp resp">PAN Card</h2>
+                    <form>
+                        <div class="flex">
+                        <div class="img"><img src="realpan.png"  class="imagesize3"width="40px" height="34px"></div>
+                        <div><input type="text"  placeholder="Add details" class="size respi" oninput="check()" id="three"></div>
+                        <div class="plusone">
+                        <div class="dl plus"><img src="circle-cropped.png" class="plussize"></div>
+                        </div>
+                        </div>
+                    </form>
+                </div>
+                </div>
+
+                <div class="q pdd rsize">
+                <div class="design newcolor">
+                    <h2 class="lp notresp resp">Latest Picture</h2>
+                    <form>
+                        <div class="flex">
+                        <div class="img"><img src="galleryone.png"  class="imagesize4"width="33px" height="32px"></div>
+                        <div><input type="text"  placeholder="Upload File" class="size respi" oninput="check()" id="four"></div>
+                        <div class="plusone">
+                        <div class="dl plus"><img src="circle-cropped.png" class="plussize"></div>
+                        </div>
+                        </div>
+                    </form>
+                </div>
+                </div>
+
+            </div>
+
+            <div class="ep">
+                <div class="o resp">&#x1F6C8; By submitting this form, you consent to your data being shared</div>
+            </div><br>
+            <div class="upl borderresp">
+                <div class="last">
+                    <div class="lone resp">SUBMIT</div>
+                </div>
+            </div>
+        </div> 
+    </body>
+</html>
